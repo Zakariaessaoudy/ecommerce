@@ -1,0 +1,239 @@
+#!/bin/bash
+
+# Base directory
+BASE_DIR="src/main/java/fst/ecommerce"
+
+# Core packages
+CORE_PACKAGES=(
+    "config"
+    "controller"
+    "dto/utilisateur"
+    "dto/produit"
+    "dto/categorie"
+    "dto/panier"
+    "dto/panierItem"
+    "dto/commande"
+    "dto/paiement"
+    "dto/adresse"
+    "dto/avis"
+    "dto/wishlist"
+    "dto/coupon"
+    "dto/livraison"
+    "entity"
+    "enums"
+    "exception"
+    "properties"
+    "repository"
+    "service/utilisateur"
+    "service/produit"
+    "service/categorie"
+    "service/panier"
+    "service/panierItem"
+    "service/commande"
+    "service/paiement"
+    "service/adresse"
+    "service/avis"
+    "service/wishlist"
+    "service/coupon"
+    "service/livraison"
+    "utils"
+)
+
+# Create all directories
+for pkg in "${CORE_PACKAGES[@]}"; do
+    mkdir -p "$BASE_DIR/$pkg"
+done
+
+# Entities
+ENTITIES=(
+"Utilisateur"
+"Produit"
+"Categorie"
+"Panier"
+"PanierItem"
+"Commande"
+"Paiement"
+"Adresse"
+"Avis"
+"Wishlist"
+"Coupon"
+"Livraison"
+)
+
+# Create empty entity files
+for entity in "${ENTITIES[@]}"; do
+    ENTITY_FILE="$BASE_DIR/entity/$entity.java"
+    if [ ! -f "$ENTITY_FILE" ]; then
+        cat <<EOL > "$ENTITY_FILE"
+package fst.ecommerce.entity;
+
+import jakarta.persistence.*;
+import java.util.*;
+
+@Entity
+public class $entity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // TODO: add fields
+}
+EOL
+    fi
+done
+
+# Create repository files
+for entity in "${ENTITIES[@]}"; do
+    REPO_FILE="$BASE_DIR/repository/${entity}Repository.java"
+    if [ ! -f "$REPO_FILE" ]; then
+        cat <<EOL > "$REPO_FILE"
+package fst.ecommerce.repository;
+
+import fst.ecommerce.entity.$entity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ${entity}Repository extends JpaRepository<$entity, Long> {
+}
+EOL
+    fi
+done
+
+# Create DTO files
+for entity in "${ENTITIES[@]}"; do
+    DTO_FILE="$BASE_DIR/dto/${entity,,}/${entity}Dto.java"
+    if [ ! -f "$DTO_FILE" ]; then
+        cat <<EOL > "$DTO_FILE"
+package fst.ecommerce.dto.${entity,,};
+
+public class ${entity}Dto {
+    // TODO: add DTO fields
+}
+EOL
+    fi
+done
+
+# Create service files
+for entity in "${ENTITIES[@]}"; do
+    # Interface
+    SERVICE_FILE="$BASE_DIR/service/${entity,,}/${entity}Service.java"
+    if [ ! -f "$SERVICE_FILE" ]; then
+        cat <<EOL > "$SERVICE_FILE"
+package fst.ecommerce.service.${entity,,};
+
+import fst.ecommerce.entity.$entity;
+import java.util.List;
+
+public interface ${entity}Service {
+    $entity create($entity ${entity,,});
+    $entity update(Long id, $entity ${entity,,});
+    void delete(Long id);
+    $entity getById(Long id);
+    List<$entity> getAll();
+}
+EOL
+    fi
+
+    # Implementation
+    SERVICE_IMPL_FILE="$BASE_DIR/service/${entity,,}/${entity}ServiceImpl.java"
+    if [ ! -f "$SERVICE_IMPL_FILE" ]; then
+        cat <<EOL > "$SERVICE_IMPL_FILE"
+package fst.ecommerce.service.${entity,,};
+
+import fst.ecommerce.entity.$entity;
+import fst.ecommerce.repository.${entity}Repository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public class ${entity}ServiceImpl implements ${entity}Service {
+
+    private final ${entity}Repository repository;
+
+    public ${entity}ServiceImpl(${entity}Repository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public $entity create($entity ${entity,,}) {
+        return repository.save(${entity,,});
+    }
+
+    @Override
+    public $entity update(Long id, $entity ${entity,,}) {
+        // TODO: implement update
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public $entity getById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<$entity> getAll() {
+        return repository.findAll();
+    }
+}
+EOL
+    fi
+done
+
+# Create controller files
+for entity in "${ENTITIES[@]}"; do
+    CONTROLLER_FILE="$BASE_DIR/controller/${entity}Controller.java"
+    if [ ! -f "$CONTROLLER_FILE" ]; then
+        cat <<EOL > "$CONTROLLER_FILE"
+package fst.ecommerce.controller;
+
+import fst.ecommerce.entity.$entity;
+import fst.ecommerce.service.${entity,,}.${entity}Service;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/${entity,,}")
+public class ${entity}Controller {
+
+    private final ${entity}Service service;
+
+    public ${entity}Controller(${entity}Service service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<$entity> getAll() {
+        return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public $entity getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
+
+    @PostMapping
+    public $entity create(@RequestBody $entity ${entity,,}) {
+        return service.create(${entity,,});
+    }
+
+    @PutMapping("/{id}")
+    public $entity update(@PathVariable Long id, @RequestBody $entity ${entity,,}) {
+        return service.update(id, ${entity,,});
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+}
+EOL
+    fi
+done
+
+echo "E-commerce project structure created under src/main/java/fst/ecommerce."

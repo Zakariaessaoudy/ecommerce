@@ -1,0 +1,327 @@
+#!/bin/bash
+
+# Base package path
+BASE_DIR=src/main/java/com/ecommerce
+SECURITY_DIR=$BASE_DIR/security
+
+# Create directories
+mkdir -p $SECURITY_DIR/config
+mkdir -p $SECURITY_DIR/jwt
+mkdir -p $SECURITY_DIR/model
+mkdir -p $SECURITY_DIR/service
+mkdir -p $SECURITY_DIR/util
+mkdir -p $BASE_DIR/user
+mkdir -p $BASE_DIR/product
+mkdir -p $BASE_DIR/order
+
+#############################
+# SECURITY CONFIG CLASSES
+#############################
+
+cat > $SECURITY_DIR/config/SecurityConfig.java << 'EOF'
+package com.ecommerce.security.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+/**
+ * SecurityConfig
+ * ----------------
+ * Defines the main Spring Security configuration.
+ * - Sets up HTTP security rules
+ * - Registers filters (e.g., JWT filter)
+ * - Controls session management
+ */
+@Configuration
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .build();
+    }
+}
+EOF
+
+cat > $SECURITY_DIR/config/MethodSecurityConfig.java << 'EOF'
+package com.ecommerce.security.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
+/**
+ * MethodSecurityConfig
+ * ---------------------
+ * Enables method-level security using:
+ * - @PreAuthorize
+ * - @Secured
+ * - @RolesAllowed
+ */
+@Configuration
+@EnableMethodSecurity
+public class MethodSecurityConfig {
+}
+EOF
+
+#############################
+# JWT CLASSES
+#############################
+
+cat > $SECURITY_DIR/jwt/JwtAuthenticationFilter.java << 'EOF'
+package com.ecommerce.security.jwt;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
+
+/**
+ * JwtAuthenticationFilter
+ * ------------------------
+ * Intercepts incoming requests to:
+ * - Extract JWT from Authorization header
+ * - Validate token
+ * - Set Authentication in SecurityContext
+ */
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+        // TODO: implement JWT validation logic
+        filterChain.doFilter(request, response);
+    }
+}
+EOF
+
+cat > $SECURITY_DIR/jwt/JwtTokenProvider.java << 'EOF'
+package com.ecommerce.security.jwt;
+
+/**
+ * JwtTokenProvider
+ * -----------------
+ * Responsible for:
+ * - Generating JWT tokens
+ * - Validating token signatures
+ * - Extracting claims (username, roles)
+ */
+public class JwtTokenProvider {
+    // TODO: implement token generation and validation
+}
+EOF
+
+cat > $SECURITY_DIR/jwt/JwtAuthenticationEntryPoint.java << 'EOF'
+package com.ecommerce.security.jwt;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import java.io.IOException;
+
+/**
+ * JwtAuthenticationEntryPoint
+ * ----------------------------
+ * Handles unauthorized access attempts:
+ * - Sends HTTP 401 Unauthorized response
+ */
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    @Override
+    public void commence(HttpServletRequest request,
+                         HttpServletResponse response,
+                         org.springframework.security.core.AuthenticationException authException)
+            throws IOException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+    }
+}
+EOF
+
+#############################
+# SECURITY MODELS
+#############################
+
+cat > $SECURITY_DIR/model/AppUser.java << 'EOF'
+package com.ecommerce.security.model;
+
+import jakarta.persistence.*;
+import java.util.Set;
+
+/**
+ * AppUser
+ * --------
+ * Represents a user in the system:
+ * - Stores username, password, and roles
+ */
+@Entity
+public class AppUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles;
+}
+EOF
+
+cat > $SECURITY_DIR/model/Role.java << 'EOF'
+package com.ecommerce.security.model;
+
+/**
+ * Role
+ * -----
+ * Enum representing roles in the system:
+ * - ADMIN
+ * - CUSTOMER
+ */
+public enum Role {
+    ADMIN,
+    CUSTOMER
+}
+EOF
+
+cat > $SECURITY_DIR/model/AuthRequest.java << 'EOF'
+package com.ecommerce.security.model;
+
+/**
+ * AuthRequest
+ * ------------
+ * DTO for login requests.
+ * Contains username and password.
+ */
+public class AuthRequest {
+    private String username;
+    private String password;
+}
+EOF
+
+cat > $SECURITY_DIR/model/AuthResponse.java << 'EOF'
+package com.ecommerce.security.model;
+
+/**
+ * AuthResponse
+ * -------------
+ * DTO for login responses.
+ * Contains JWT token and user details.
+ */
+public class AuthResponse {
+    private String token;
+}
+EOF
+
+#############################
+# SECURITY SERVICES
+#############################
+
+cat > $SECURITY_DIR/service/UserDetailsServiceImpl.java << 'EOF'
+package com.ecommerce.security.service;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+/**
+ * UserDetailsServiceImpl
+ * -----------------------
+ * Loads user-specific data from the database.
+ * Used by Spring Security during authentication.
+ */
+public class UserDetailsServiceImpl implements UserDetailsService {
+    // TODO: implement loadUserByUsername
+}
+EOF
+
+cat > $SECURITY_DIR/service/AuthService.java << 'EOF'
+package com.ecommerce.security.service;
+
+/**
+ * AuthService
+ * ------------
+ * Handles:
+ * - User registration
+ * - Login & authentication
+ * - Token refresh
+ */
+public class AuthService {
+    // TODO: implement authentication logic
+}
+EOF
+
+cat > $SECURITY_DIR/service/PasswordEncoderConfig.java << 'EOF'
+package com.ecommerce.security.service;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+/**
+ * PasswordEncoderConfig
+ * ----------------------
+ * Provides a BCryptPasswordEncoder bean for hashing passwords.
+ */
+@Configuration
+public class PasswordEncoderConfig {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+EOF
+
+#############################
+# SECURITY UTILS
+#############################
+
+cat > $SECURITY_DIR/util/SecurityUtils.java << 'EOF'
+package com.ecommerce.security.util;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+/**
+ * SecurityUtils
+ * --------------
+ * Utility class for:
+ * - Fetching current authenticated user
+ * - Checking roles
+ */
+public class SecurityUtils {
+    public static Authentication getCurrentUser() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+}
+EOF
+
+cat > $SECURITY_DIR/util/CustomAccessDeniedHandler.java << 'EOF'
+package com.ecommerce.security.util;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import java.io.IOException;
+
+/**
+ * CustomAccessDeniedHandler
+ * --------------------------
+ * Handles 403 Forbidden responses when a user lacks permissions.
+ */
+public class CustomAccessDeniedHandler implements AccessDeniedHandler {
+    @Override
+    public void handle(HttpServletRequest request,
+                       HttpServletResponse response,
+                       org.springframework.security.access.AccessDeniedException accessDeniedException)
+            throws IOException {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
+    }
+}
+EOF
+
+echo "✅ Spring Security structure with classes created successfully!"
