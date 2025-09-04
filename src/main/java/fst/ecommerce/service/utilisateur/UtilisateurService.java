@@ -8,6 +8,13 @@ import fst.ecommerce.service.CrudDtoService;
 
 import java.util.List;
 
-public interface UtilisateurService extends CrudDtoService<Utilisateur, UtilisateurDto> {
+public interface UtilisateurService {
+    UtilisateurDto create(UtilisateurDto utilisateurDto);
+
+    UtilisateurDto getById(Long id);
+
+    List<UtilisateurDto> getAll();
+
+    void delete(Long id);
 
 }
