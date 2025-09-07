@@ -16,8 +16,9 @@ import java.util.*;
 @NoArgsConstructor
 public class Utilisateur {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
     private  String nom;
     private String prenom;
     @Email
@@ -28,7 +29,7 @@ public class Utilisateur {
     private Role role;
 
     @OneToOne
-    private Wishlist wishlist;
+    private WishList wishlist;
     @OneToOne
     private Panier panier;
     @OneToMany(mappedBy = "utilisateur")
