@@ -1,34 +1,42 @@
 package fst.ecommerce.entity;
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-import java.util.*;
-
+import java.util.List;
+@Builder
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Produit {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    @NotBlank
     private String nom;
+
+    @NotBlank
     private String description;
+
+    @Positive
     private double prix;
+
     private String image;
 
     @ManyToOne
+    @JoinColumn(name = "categorie_id")
     private Categorie categorie;
-    @OneToMany(mappedBy = "produit")
-    private Collection<Avis> avis;
-    @ManyToMany
-    @JoinTable(name = "LigneCommande")
-    private Collection<Commande> commandes;
-    @ManyToMany
-    @JoinTable(name = "wishListItem")
-    private Collection<Wishlist> wishlists;
 
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Avis> avis;
+
+    @OneToMany(mappedBy = "produit")
+    private List<LigneCommande> ligneCommandes;
+
+    @OneToMany(mappedBy = "produit")
+    private List<WishListItem> wishListItems;
 }

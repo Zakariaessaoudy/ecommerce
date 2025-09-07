@@ -1,6 +1,6 @@
 package fst.ecommerce.controller;
 
-import fst.ecommerce.entity.Wishlist;
+import fst.ecommerce.entity.WishList;
 import fst.ecommerce.service.wishlist.WishlistService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -16,22 +16,22 @@ public class WishlistController {
     }
 
     @GetMapping
-    public List<Wishlist> getAll() {
+    public List<WishList> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Wishlist getById(@PathVariable Long id) {
+    public WishList getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @PostMapping
-    public Wishlist create(@RequestBody Wishlist wishlist) {
+    public WishList create(@RequestBody WishList wishlist) {
         return service.create(wishlist);
     }
 
     @PutMapping("/{id}")
-    public Wishlist update(@PathVariable Long id, @RequestBody Wishlist wishlist) {
+    public WishList update(@PathVariable Long id, @RequestBody WishList wishlist) {
         return service.update(id, wishlist);
     }
 

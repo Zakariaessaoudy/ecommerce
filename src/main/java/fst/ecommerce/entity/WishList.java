@@ -11,11 +11,12 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Wishlist {
+public class WishList {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Temporal(TemporalType.DATE)
     private Date dateCreation;
-    @ManyToMany
-    private List<Produit>  produits ;
+    @OneToMany(mappedBy = "wishList")
+    private List<WishListItem>  wishListItems ;
 }

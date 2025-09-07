@@ -14,7 +14,7 @@ import java.util.*;
 @NoArgsConstructor
 public class Utilisateur {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private  String nom;
     private String prenom;
@@ -25,7 +25,7 @@ public class Utilisateur {
     private Role role;
 
     @OneToOne
-    private Wishlist wishlist;
+    private WishList wishlist;
     @OneToOne
     private Panier panier;
     @OneToMany(mappedBy = "utilisateur")

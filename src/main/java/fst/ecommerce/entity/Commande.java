@@ -21,8 +21,8 @@ public class Commande {
     private StatutCommande statutCommande;
     @OneToOne
     private Paiement paiement;
-    @ManyToMany
-    private Collection<Produit> produits;
+    @OneToMany(mappedBy = "commande",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Collection<LigneCommande> ligneCommandes;
     @ManyToOne
     private Utilisateur utilisateur;
 }
