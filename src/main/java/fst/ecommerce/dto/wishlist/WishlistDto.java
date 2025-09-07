@@ -1,5 +1,15 @@
 package fst.ecommerce.dto.wishlist;
 
+import fst.ecommerce.dto.wishListItem.WishListItemDto;
+import fst.ecommerce.entity.WishListItem;
+
+
+import java.util.Date;
+import java.util.List;
+
 public class WishlistDto {
-    // TODO: add DTO fields
+
+    private String id;
+    private Date dateCreation;
+    private List<WishListItemDto> wishListItems ;
 }

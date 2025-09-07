@@ -1,6 +1,6 @@
 package fst.ecommerce.service.wishlist;
 
-import fst.ecommerce.entity.Wishlist;
+import fst.ecommerce.entity.WishList;
 import fst.ecommerce.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,12 +15,12 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public Wishlist create(Wishlist wishlist) {
+    public WishList create(WishList wishlist) {
         return repository.save(wishlist);
     }
 
     @Override
-    public Wishlist update(Long id, Wishlist wishlist) {
+    public WishList update(Long id, WishList wishlist) {
         // TODO: implement update
         return null;
     }
@@ -31,12 +31,12 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public Wishlist getById(Long id) {
+    public WishList getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Wishlist> getAll() {
+    public List<WishList> getAll() {
         return repository.findAll();
     }
 }

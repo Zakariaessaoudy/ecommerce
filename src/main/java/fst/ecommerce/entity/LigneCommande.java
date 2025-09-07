@@ -2,25 +2,22 @@ package fst.ecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
-
 @Entity
-@Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class PanierItem {
+@AllArgsConstructor
+public class LigneCommande {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private int quantite;
-    @ManyToOne
-    private Panier panier;
+    private double prixUnitaire;
+
     @ManyToOne
     private Produit produit;
-
+    @ManyToOne
+    private Commande commande;
 }

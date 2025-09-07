@@ -2,24 +2,24 @@ package fst.ecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.Date;
 
-@Entity
-@Builder
 @Data
-@AllArgsConstructor
+@Entity
 @NoArgsConstructor
-public class PanierItem {
+@AllArgsConstructor
+public class WishListItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private int quantite;
+    @Temporal(TemporalType.DATE)
+    private Date dateAjout;
+    private int priorite;
     @ManyToOne
-    private Panier panier;
+    private WishList wishList;
     @ManyToOne
     private Produit produit;
 
