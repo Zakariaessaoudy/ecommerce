@@ -8,6 +8,14 @@ import fst.ecommerce.service.CrudDtoService;
 
 import java.util.List;
 
-public interface CommandeService extends CrudDtoService<Commande, CommandeDto> {
+public interface CommandeService    {
+    CommandeDto createCommande (CommandeDto commandeDto);
+
+    void deleteCommande (Long id );
+
+    List<CommandeDto> getAllCommande() ;
+
+    CommandeDto getCommandeById( Long id) ;
+
 
 }

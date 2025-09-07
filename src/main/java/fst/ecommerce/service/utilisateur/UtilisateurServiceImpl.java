@@ -3,6 +3,7 @@ package fst.ecommerce.service.utilisateur;
 import fst.ecommerce.dto.utilisateur.UtilisateurDto;
 import fst.ecommerce.dto.utilisateur.UtilisateurMapper;
 import fst.ecommerce.entity.Utilisateur;
+import fst.ecommerce.exception.RessourceNotFound;
 import fst.ecommerce.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -30,7 +31,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public UtilisateurDto getById(Long id) {
         Utilisateur utilisateur = utilisateurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+                .orElseThrow(() -> new RessourceNotFound("Utilisateur non trouvé"));
         return utilisateurMapper.toDTO(utilisateur);
     }
 

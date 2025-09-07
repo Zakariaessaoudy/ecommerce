@@ -15,7 +15,7 @@ import java.util.*;
 public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     @Temporal(TemporalType.DATE)
     private Date dateCommande;
     private StatutCommande statutCommande;

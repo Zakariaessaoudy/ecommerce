@@ -8,6 +8,10 @@ import fst.ecommerce.service.CrudDtoService;
 
 import java.util.List;
 
-public interface CouponService extends CrudDtoService<Coupon, CouponDto> {
+public interface CouponService  {
+    CouponDto createCoupon(CouponDto couponDTO);
+    CouponDto getCouponByCode(String code);
+    List<CouponDto> getAllCoupons();
+    void deleteCoupon(Long id);
 
 }
