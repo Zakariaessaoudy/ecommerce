@@ -2,9 +2,7 @@ package fst.ecommerce.entity;
 
 import fst.ecommerce.enums.StatutCommande;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.*;
 
@@ -12,13 +10,17 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     @Temporal(TemporalType.DATE)
     private Date dateCommande;
     private StatutCommande statutCommande;
+
+
     @OneToOne
     private Paiement paiement;
     @OneToMany(mappedBy = "commande",fetch = FetchType.EAGER, cascade = CascadeType.ALL)

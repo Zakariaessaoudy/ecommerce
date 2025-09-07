@@ -1,9 +1,7 @@
 package fst.ecommerce.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.*;
 
@@ -11,11 +9,15 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+
+
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-
+    private Long id;
+    @Column(unique = true, nullable = false)
     private String code;
     private double reduction;
     @Temporal(TemporalType.DATE)

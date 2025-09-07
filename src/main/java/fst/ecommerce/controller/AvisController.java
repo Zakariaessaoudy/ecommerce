@@ -7,7 +7,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/avis")
-public class AvisController {
+public classAvisController {
 
     private final AvisService service;
 

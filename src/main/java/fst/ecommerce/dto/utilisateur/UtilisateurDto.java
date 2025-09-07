@@ -1,5 +1,18 @@
 package fst.ecommerce.dto.utilisateur;
 
+
+import fst.ecommerce.enums.Role;
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class UtilisateurDto {
-    // TODO: add DTO fields
+        private Long id;
+        private String nom;
+        private String email;
+        private String telephone;
+        private Role role;
 }
