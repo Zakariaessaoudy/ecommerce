@@ -5,54 +5,61 @@ import fst.ecommerce.dto.commande.CommandeMapper;
 import fst.ecommerce.entity.Commande;
 import fst.ecommerce.exception.RessourceNotFound;
 import fst.ecommerce.repository.CommandeRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+@Slf4j
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class CommandeServiceImpl implements CommandeService {
 
-    private   final CommandeRepository commandeRepository ;
-    private final CommandeMapper commandeMapper ;
+    private final CommandeRepository repository;
+    private final CommandeMapper mapper;
 
-    public CommandeServiceImpl( CommandeRepository commandeRepository ,
-                                CommandeMapper commandeMapper){
-        this.commandeMapper = commandeMapper ;
-        this.commandeRepository = commandeRepository ;
-
+    @Override
+    public CommandeDto create(CommandeDto commandeDto) {
+        log.info("Creating new commande: {}", commandeDto);
+        Commande commande = mapper.toEntity(commandeDto);
+        Commande saved = repository.save(commande);
+        return mapper.toDTO(saved);
     }
 
     @Override
-    public CommandeDto createCommande (CommandeDto commandeDto){
-        Commande commande = commandeMapper.toEntity(commandeDto);
-        Commande saved = commandeRepository.save(commande);
-        return commandeMapper.toDTO(saved);
+    public CommandeDto update(CommandeDto commandeDto) {
+        log.info("Updating commande with id {}", commandeDto.getId());
+        repository.findById(commandeDto.getId())
+                .orElseThrow(() -> new RessourceNotFound("Commande with id " + commandeDto.getId() + " not found"));
+        Commande updated = repository.save(mapper.toEntity(commandeDto));
+        return mapper.toDTO(updated);
     }
 
     @Override
-    public  CommandeDto getCommandeById (Long id){
-        Commande commande = commandeRepository.findById(id)
-                .orElseThrow(() -> new RessourceNotFound("Commande non trouvée"));
-        return commandeMapper.toDTO(commande);
-
+    public void delete(String id) {
+        log.info("Deleting commande with id {}", id);
+        Commande commande = repository.findById(id)
+                .orElseThrow(() -> new RessourceNotFound("Commande with id " + id + " not found"));
+        repository.delete(commande);
     }
 
     @Override
-
-    public void deleteCommande (Long id){
-        if(!commandeRepository.existsById(id)){
-            throw new RessourceNotFound("commande d'id "+id +"non trouvée");
-        }
-
-        commandeRepository.deleteById(id);
+    public CommandeDto getById(String id) {
+        log.info("Fetching commande with id {}", id);
+        Commande commande = repository.findById(id)
+                .orElseThrow(() -> new RessourceNotFound("Commande with id " + id + " not found"));
+        return mapper.toDTO(commande);
     }
 
     @Override
-    public List<CommandeDto> getAllCommande(){
-        return commandeRepository.findAll()
+    public List<CommandeDto> getAll() {
+        log.info("Fetching all commandes");
+        return repository.findAll()
                 .stream()
-                .map(commandeMapper ::toDTO)
-                .collect(Collectors.toList());
+                .map(mapper::toDTO)
+                .toList();
     }
-
 }

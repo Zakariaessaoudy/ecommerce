@@ -1,4 +1,5 @@
 package fst.ecommerce.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -29,14 +30,20 @@ public class Produit {
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")
+    @JsonIgnore
     private Categorie categorie;
 
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+
     private List<Avis> avis;
 
+
     @OneToMany(mappedBy = "produit")
+    @JsonIgnore
     private List<LigneCommande> ligneCommandes;
 
     @OneToMany(mappedBy = "produit")
+    @JsonIgnore
     private List<WishListItem> wishListItems;
 }

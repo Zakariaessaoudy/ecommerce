@@ -26,9 +26,9 @@ import java.util.*;
 
 @Service
 @Transactional
-public class PaiementServiceImpl implements PaiementService {
+public class PaiementServiceImpl  {
 
-    private final PaiementRepository paiementRepository;
+    /*private final PaiementRepository paiementRepository;
     private final CommandeRepository commandeRepository;
     private final ObjectMapper objectMapper;
 
@@ -225,4 +225,4 @@ public class PaiementServiceImpl implements PaiementService {
     private String urlEncode(String value) {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
-}
+*/}

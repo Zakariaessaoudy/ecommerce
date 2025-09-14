@@ -15,8 +15,8 @@ import java.util.*;
 
 public class Coupon {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column(unique = true, nullable = false)
     private String code;
     private double reduction;
