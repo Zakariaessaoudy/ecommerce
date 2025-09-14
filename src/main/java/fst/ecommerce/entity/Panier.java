@@ -14,7 +14,7 @@ import java.util.*;
 @AllArgsConstructor
 public class Panier {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Temporal(TemporalType.DATE)
     private Date dateCreation;

@@ -2,11 +2,15 @@ package fst.ecommerce.dto.produit;
 
 import fst.ecommerce.dto.avis.AvisDto;
 import fst.ecommerce.dto.ligneCommande.LigneCommandDto;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import lombok.*;
+
 
 import java.util.List;
-
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProduitDetailsDto {
     private String id;
     private String nom;

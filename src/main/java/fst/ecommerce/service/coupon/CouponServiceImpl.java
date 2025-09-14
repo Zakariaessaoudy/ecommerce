@@ -13,49 +13,24 @@ import fst.ecommerce.dto.coupon.CouponMapper;
 @Service
 public class CouponServiceImpl implements CouponService {
 
-    private final CouponRepository couponRepository;
-    private final CouponMapper couponMapper;
-    public CouponServiceImpl(CouponRepository couponRepository , CouponMapper couponMapper) {
-        this.couponRepository = couponRepository;
-        this.couponMapper = couponMapper ;
-    }
 
     @Override
-    public CouponDto createCoupon(CouponDto dto) {
-        Coupon coupon = new Coupon();
-        coupon.setCode(dto.getCode());
-        coupon.setReduction(dto.getReduction());
-        coupon.setEndDate(dto.getEndDate());
-
-        Coupon saved = couponRepository.save(coupon);
-        return couponMapper.toDTO(saved);
+    public CouponDto createCoupon(CouponDto couponDTO) {
+        return null;
     }
 
     @Override
     public CouponDto getCouponByCode(String code) {
-        Coupon coupon = couponRepository.findByCode(code)
-                .orElseThrow(() -> new RessourceNotFound("Coupon non trouvé avec le code : " + code));
-
-        if (!CouponIsValid.isValid(coupon)) {
-            throw new RessourceNotFound("Coupon expiré ou invalide !");
-        }
-
-        return couponMapper.toDTO(coupon);
+        return null;
     }
 
     @Override
     public List<CouponDto> getAllCoupons() {
-        return couponRepository.findAll()
-                .stream()
-                .map(couponMapper::toDTO)
-                .collect(Collectors.toList());
+        return List.of();
     }
 
     @Override
     public void deleteCoupon(Long id) {
-        if (!couponRepository.existsById(id)) {
-            throw new RessourceNotFound("Coupon non trouvé avec id : " + id);
-        }
-        couponRepository.deleteById(id);
+
     }
 }

@@ -4,6 +4,6 @@ import fst.ecommerce.dto.categorie.CategorieDto;
 import fst.ecommerce.entity.Categorie;
 import fst.ecommerce.service.CrudDtoService;
 
-public interface CategorieService extends CrudDtoService<Categorie, CategorieDto> {
+public interface CategorieService extends CrudDtoService<String, CategorieDto> {
 
 }

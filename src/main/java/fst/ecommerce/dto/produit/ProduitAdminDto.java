@@ -2,15 +2,20 @@ package fst.ecommerce.dto.produit;
 
 import fst.ecommerce.dto.avis.AvisDto;
 import fst.ecommerce.dto.ligneCommande.LigneCommandDto;
-import fst.ecommerce.entity.Avis;
+import fst.ecommerce.dto.wishListItem.WishListItemDto;
 import fst.ecommerce.entity.Categorie;
-import fst.ecommerce.entity.LigneCommande;
 import fst.ecommerce.entity.WishListItem;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.util.List;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProduitAdminDto {
     private String id;
 
@@ -31,5 +36,5 @@ public class ProduitAdminDto {
 
     private List<LigneCommandDto> ligneCommandes;
 
-    private List<WishListItem> wishListItems;
+    private List<WishListItemDto> wishListItems;
 }

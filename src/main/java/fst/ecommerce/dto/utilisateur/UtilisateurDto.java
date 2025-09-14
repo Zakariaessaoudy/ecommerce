@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 public class UtilisateurDto {
-        private Long id;
+        private String id;
         private String nom;
         private String email;
         private String telephone;

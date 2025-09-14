@@ -2,14 +2,18 @@ package fst.ecommerce.dto.paiement;
 
 import fst.ecommerce.enums.MethodePaiement;
 import fst.ecommerce.enums.StatutPaiement;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaiementDto {
-    private Long id;
+    private String id;
     private String paymentId;
     private String transactionReference;
     private String clientSecret;
@@ -18,6 +22,6 @@ public class PaiementDto {
     private StatutPaiement statut;
     private MethodePaiement methode;
     private LocalDateTime datePaiement;
-    private Long commandeId; // éviter de renvoyer tout l’objet Commande
+    private String commandeId; // éviter de renvoyer tout l’objet Commande
 }
 

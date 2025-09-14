@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = {ProduitMapper.class})
 public interface LigneCommandMapper {
-    LigneCommandDto toDto(LigneCommande ligneCommande);
+    LigneCommandDto toDTO(LigneCommande ligneCommande);
     LigneCommande toEntity(LigneCommandDto ligneCommandDto);
 
 }

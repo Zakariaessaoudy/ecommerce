@@ -1,7 +1,9 @@
 package fst.ecommerce.dto.panierItem;
 
 import fst.ecommerce.entity.PanierItem;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PanierItemMapperImpl implements PanierItemMapper {
     @Override
     public PanierItemDto toDTO(PanierItem panierItem) {

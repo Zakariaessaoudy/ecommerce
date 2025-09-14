@@ -1,5 +1,6 @@
 package fst.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +19,6 @@ public class WishList {
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
     @OneToMany(mappedBy = "wishList")
+    @JsonIgnore
     private List<WishListItem>  wishListItems ;
 }
