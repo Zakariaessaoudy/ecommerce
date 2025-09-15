@@ -1,18 +1,15 @@
 package fst.ecommerce.dto.produit;
 
-import fst.ecommerce.entity.*;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
-import java.util.List;
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProduitDto {
+public class ProduitSimpleDto {
     private String id;
 
     @NotBlank

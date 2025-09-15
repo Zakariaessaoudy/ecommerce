@@ -1,7 +1,9 @@
 package fst.ecommerce.dto.categorie;
 
 import fst.ecommerce.entity.Categorie;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategorieMapperImpl implements CategorieMapper {
     @Override
     public CategorieDto toDTO(Categorie categorie) {

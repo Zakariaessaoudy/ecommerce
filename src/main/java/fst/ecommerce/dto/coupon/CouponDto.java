@@ -1,13 +1,17 @@
 package fst.ecommerce.dto.coupon;
 
-import lombok.Data;
-
+import lombok.*;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CouponDto {
-    private Long id;
+    private String id;
     private String code;
     private double reduction;
     private Date endDate;
+    private boolean active;
+    private int usageLimit;
+    private int usedCount;
 }

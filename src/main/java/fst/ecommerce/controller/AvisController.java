@@ -1,43 +1,42 @@
 package fst.ecommerce.controller;
 
-import fst.ecommerce.entity.Avis;
+import fst.ecommerce.dto.avis.AvisDto;
 import fst.ecommerce.service.avis.AvisService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/avis")
-public classAvisController {
+@RequiredArgsConstructor
+public class AvisController {
 
     private final AvisService service;
 
-    public AvisController(AvisService service) {
-        this.service = service;
-    }
-
-    @GetMapping
-    public List<Avis> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Avis getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
-
+    // ➕ deposer un Avis
     @PostMapping
-    public Avis create(@RequestBody Avis avis) {
-        return service.create(avis);
+    public ResponseEntity<AvisDto> create(@RequestBody AvisDto avisDto) {
+        return ResponseEntity.ok(service.create(avisDto));
     }
 
-    @PutMapping("/{id}")
-    public Avis update(@PathVariable Long id, @RequestBody Avis avis) {
-        return service.update(id, avis);
-    }
 
+    // ❌ Supprimer un Avis
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
+        return ResponseEntity.noContent().build();
     }
+
+    // 🔍 Récupérer un Avis
+    @GetMapping("/{id}")
+    public ResponseEntity<AvisDto> getById(@PathVariable String id) {
+        return ResponseEntity.ok(service.getById(id));
+    }
+    // 📦 Liste de tous les Avis
+    @GetMapping
+    public ResponseEntity<List<AvisDto>> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
 }

@@ -1,55 +1,65 @@
 package fst.ecommerce.service.panierItem;
 
+import fst.ecommerce.dto.panierItem.PanierItemDto;
+import fst.ecommerce.dto.panierItem.PanierItemMapper;
 import fst.ecommerce.entity.PanierItem;
+import fst.ecommerce.exception.RessourceNotFound;
 import fst.ecommerce.repository.PanierItemRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class PanierItemServiceImpl implements PanierItemService {
 
     private final PanierItemRepository repository;
+    private final PanierItemMapper mapper;
 
-    public PanierItemServiceImpl(PanierItemRepository repository) {
-        this.repository = repository;
+    @Override
+    public PanierItemDto create(PanierItemDto dto) {
+        log.info("Creating new PanierItem: {}", dto);
+        PanierItem entity = mapper.toEntity(dto);
+        PanierItem saved = repository.save(entity);
+        return mapper.toDTO(saved);
     }
 
     @Override
-    public PanierItem create(PanierItem item) {
-        return repository.save(item);
+    public PanierItemDto update(PanierItemDto dto) {
+        log.info("Updating PanierItem with id {}", dto.getId());
+        repository.findById(dto.getId())
+                .orElseThrow(() -> new RessourceNotFound("PanierItem with id " + dto.getId() + " not found"));
+        PanierItem updated = repository.save(mapper.toEntity(dto));
+        return mapper.toDTO(updated);
     }
 
     @Override
-    public PanierItem update(Long id, int quantity) {
-        return repository.findById(id)
-                .map(existing -> {
-                    existing.setQuantity(quantity);
-                    return repository.save(existing);
-                })
-                .orElse(null);
+    public void delete(String id) {
+        log.info("Deleting PanierItem with id {}", id);
+        PanierItem entity = repository.findById(id)
+                .orElseThrow(() -> new RessourceNotFound("PanierItem with id " + id + " not found"));
+        repository.delete(entity);
     }
 
     @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
+    public PanierItemDto getById(String id) {
+        log.info("Fetching PanierItem with id {}", id);
+        PanierItem entity = repository.findById(id)
+                .orElseThrow(() -> new RessourceNotFound("PanierItem with id " + id + " not found"));
+        return mapper.toDTO(entity);
     }
 
     @Override
-    public PanierItem get(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<PanierItem> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public double getTotal() {
+    public List<PanierItemDto> getAll() {
+        log.info("Fetching all PanierItems");
         return repository.findAll()
                 .stream()
-                .mapToDouble(item -> item.getProduit().getPrix() * item.getQuantity())
-                .sum();
+                .map(mapper::toDTO)
+                .toList();
     }
 }

@@ -1,7 +1,9 @@
 package fst.ecommerce.dto.avis;
 
 import fst.ecommerce.entity.Avis;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AvisMapperImpl implements AvisMapper {
     @Override
     public AvisDto toDTO(Avis avis) {

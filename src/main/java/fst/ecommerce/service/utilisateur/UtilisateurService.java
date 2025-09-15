@@ -15,6 +15,6 @@ public interface UtilisateurService {
 
     List<UtilisateurDto> getAll();
 
-    void delete(Long id);
+    void delete(String id);
 
 }

@@ -1,42 +1,40 @@
 package fst.ecommerce.controller;
 
-import fst.ecommerce.entity.Panier;
+import fst.ecommerce.dto.panier.PanierDto;
 import fst.ecommerce.service.panier.PanierService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/panier")
+@RequestMapping("/api/paniers")
 public class PanierController {
 
-    private final PanierService service;
+    private final PanierService panierService;
 
-    public PanierController(PanierService service) {
-        this.service = service;
-    }
-
-    @GetMapping
-    public List<Panier> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Panier getById(@PathVariable Long id) {
-        return service.getById(id);
+    public PanierController(PanierService panierService) {
+        this.panierService = panierService;
     }
 
     @PostMapping
-    public Panier create(@RequestBody Panier panier) {
-        return service.create(panier);
+    public ResponseEntity<PanierDto> create(@RequestBody PanierDto dto) {
+        return ResponseEntity.ok(panierService.create(dto));
     }
 
-    @PutMapping("/{id}")
-    public Panier update(@PathVariable Long id, @RequestBody Panier panier) {
-        return service.update(id, panier);
+    @GetMapping("/{id}")
+    public ResponseEntity<PanierDto> getById(@PathVariable String id) {
+        return ResponseEntity.ok(panierService.getById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PanierDto>> getAll() {
+        return ResponseEntity.ok(panierService.getAll());
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        panierService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

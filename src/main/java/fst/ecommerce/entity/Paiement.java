@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 public class Paiement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     private String paymentId; // ID venant de Stripe/PayPal
     private String transactionReference; // Référence unique interne

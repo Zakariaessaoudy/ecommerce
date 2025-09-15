@@ -1,16 +1,20 @@
 package fst.ecommerce.dto.livraison;
 
 import fst.ecommerce.enums.StatutLivraison;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LivraisonDto {
-    private Long id;
+    private String id;
     private String transporteur;
     private Date dateExpedition;
     private Date dateLivraison;
     private StatutLivraison statutLivraison;
-    private Long commandeId;
+    private String commandeId;
 }

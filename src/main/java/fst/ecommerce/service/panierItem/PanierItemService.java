@@ -8,6 +8,6 @@ import fst.ecommerce.service.CrudDtoService;
 
 import java.util.List;
 
-public interface PanierItemService extends CrudDtoService<PanierItem, PanierItemDto> {
+public interface PanierItemService extends CrudDtoService<String , PanierItemDto> {
 
 }

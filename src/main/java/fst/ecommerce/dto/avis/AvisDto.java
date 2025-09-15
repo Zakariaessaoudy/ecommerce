@@ -1,13 +1,13 @@
 package fst.ecommerce.dto.avis;
 
 import fst.ecommerce.entity.Produit;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AvisDto {
     private String id;
     private int note;
