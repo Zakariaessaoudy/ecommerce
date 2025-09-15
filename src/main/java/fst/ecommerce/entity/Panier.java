@@ -1,7 +1,6 @@
 package fst.ecommerce.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.Fetch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +14,13 @@ import java.util.*;
 public class Panier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
 
     @OneToOne
     private Utilisateur utilisateur;
-    @OneToMany(mappedBy = "panier")
-    private Collection<PanierItem> panierItem;
 
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<PanierItem> panierItem = new ArrayList<>();
 }

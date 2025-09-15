@@ -10,14 +10,12 @@ public class utilisateurMapperImpl  implements UtilisateurMapper{
     public UtilisateurDto toDTO(Utilisateur utilisateur) {
         if (utilisateur == null) return null;
 
-        UtilisateurDto dto = new UtilisateurDto();
-
-        dto.setId(utilisateur.getId());
-        dto.setNom(utilisateur.getNom());
-        dto.setEmail(utilisateur.getEmail());
-        dto.setTelephone(utilisateur.getTelephone());
-        dto.setRole(utilisateur.getRole());
-        return dto;
+        return UtilisateurDto.builder()
+                .id(utilisateur.getId())
+                .nom(utilisateur.getNom())
+                .email(utilisateur.getEmail())
+                .role(utilisateur.getRole())
+                .build();
 
     }
 

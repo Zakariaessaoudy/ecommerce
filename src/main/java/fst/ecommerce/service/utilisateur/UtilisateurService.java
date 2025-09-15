@@ -11,7 +11,7 @@ import java.util.List;
 public interface UtilisateurService {
     UtilisateurDto create(UtilisateurDto utilisateurDto);
 
-    UtilisateurDto getById(Long id);
+    UtilisateurDto getById(String id);
 
     List<UtilisateurDto> getAll();
 

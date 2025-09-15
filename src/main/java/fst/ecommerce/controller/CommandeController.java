@@ -1,42 +1,39 @@
 package fst.ecommerce.controller;
 
-import fst.ecommerce.entity.Commande;
+import fst.ecommerce.dto.commande.CommandeDto;
 import fst.ecommerce.service.commande.CommandeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/commande")
+@RequestMapping("/api/commandes")
 public class CommandeController {
 
-    private final CommandeService service;
+    private final CommandeService commandeService;
 
-    public CommandeController(CommandeService service) {
-        this.service = service;
-    }
-
-    @GetMapping
-    public List<Commande> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Commande getById(@PathVariable Long id) {
-        return service.getById(id);
+    public CommandeController(CommandeService commandeService) {
+        this.commandeService = commandeService;
     }
 
     @PostMapping
-    public Commande create(@RequestBody Commande commande) {
-        return service.create(commande);
+    public ResponseEntity<CommandeDto> create(@RequestBody CommandeDto dto) {
+        return ResponseEntity.ok(commandeService.createCommande(dto));
     }
 
-    @PutMapping("/{id}")
-    public Commande update(@PathVariable Long id, @RequestBody Commande commande) {
-        return service.update(id, commande);
+    @GetMapping("/{id}")
+    public ResponseEntity<CommandeDto> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(commandeService.getCommandeById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CommandeDto>> getAll() {
+        return ResponseEntity.ok(commandeService.getAllCommande());
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        commandeService.deleteCommande(id);
+        return ResponseEntity.noContent().build();
     }
 }

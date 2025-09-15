@@ -1,42 +1,48 @@
 package fst.ecommerce.controller;
 
-import fst.ecommerce.entity.Coupon;
+import fst.ecommerce.dto.coupon.CouponDto;
 import fst.ecommerce.service.coupon.CouponService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/coupon")
+@RequestMapping("/api/coupons")
 public class CouponController {
 
-    private final CouponService service;
+    private final CouponService couponService;
 
-    public CouponController(CouponService service) {
-        this.service = service;
+    public CouponController(CouponService couponService) {
+        this.couponService = couponService;
     }
 
-    @GetMapping
-    public List<Coupon> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Coupon getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
+    // 🔹 Créer un coupon
     @PostMapping
-    public Coupon create(@RequestBody Coupon coupon) {
-        return service.create(coupon);
+    public ResponseEntity<CouponDto> createCoupon(@RequestBody CouponDto dto) {
+        CouponDto savedCoupon = couponService.createCoupon(dto);
+        return new ResponseEntity<>(savedCoupon, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public Coupon update(@PathVariable Long id, @RequestBody Coupon coupon) {
-        return service.update(id, coupon);
+    // 🔹 Récupérer un coupon par code
+    @GetMapping("/{code}")
+    public ResponseEntity<CouponDto> getCouponByCode(@PathVariable String code) {
+        CouponDto coupon = couponService.getCouponByCode(code);
+        return ResponseEntity.ok(coupon);
     }
 
+    // 🔹 Lister tous les coupons
+    @GetMapping
+    public ResponseEntity<List<CouponDto>> getAllCoupons() {
+        List<CouponDto> coupons = couponService.getAllCoupons();
+        return ResponseEntity.ok(coupons);
+    }
+
+    // 🔹 Supprimer un coupon
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> deleteCoupon(@PathVariable Long id) {
+        couponService.deleteCoupon(id);
+        return ResponseEntity.noContent().build();
     }
 }

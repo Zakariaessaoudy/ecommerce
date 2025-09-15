@@ -29,7 +29,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public UtilisateurDto getById(Long id) {
+    public UtilisateurDto getById(String id) {
         Utilisateur utilisateur = utilisateurRepository.findById(id)
                 .orElseThrow(() -> new RessourceNotFound("Utilisateur non trouvé"));
         return utilisateurMapper.toDTO(utilisateur);

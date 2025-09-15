@@ -1,42 +1,47 @@
 package fst.ecommerce.controller;
 
-import fst.ecommerce.entity.Utilisateur;
+import fst.ecommerce.dto.utilisateur.UtilisateurDto;
 import fst.ecommerce.service.utilisateur.UtilisateurService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/utilisateur")
+@RequestMapping("/api/utilisateurs")
 public class UtilisateurController {
 
-    private final UtilisateurService service;
+    private final UtilisateurService utilisateurService;
 
-    public UtilisateurController(UtilisateurService service) {
-        this.service = service;
+    public UtilisateurController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
     }
 
-    @GetMapping
-    public List<Utilisateur> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Utilisateur getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
+    // 🔹 Créer un utilisateur
     @PostMapping
-    public Utilisateur create(@RequestBody Utilisateur utilisateur) {
-        return service.create(utilisateur);
+    public ResponseEntity<UtilisateurDto> create(@RequestBody UtilisateurDto utilisateurDto) {
+        UtilisateurDto saved = utilisateurService.create(utilisateurDto);
+        return ResponseEntity.ok(saved);
     }
 
-    @PutMapping("/{id}")
-    public Utilisateur update(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
-        return service.update(id, utilisateur);
+    // 🔹 Récupérer un utilisateur par ID
+    @GetMapping("/{id}")
+    public ResponseEntity<UtilisateurDto> getById(@PathVariable Long id) {
+        UtilisateurDto utilisateur = utilisateurService.getById(id);
+        return ResponseEntity.ok(utilisateur);
     }
 
+    // 🔹 Récupérer tous les utilisateurs
+    @GetMapping
+    public ResponseEntity<List<UtilisateurDto>> getAll() {
+        List<UtilisateurDto> utilisateurs = utilisateurService.getAll();
+        return ResponseEntity.ok(utilisateurs);
+    }
+
+    // 🔹 Supprimer un utilisateur par ID
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        utilisateurService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
