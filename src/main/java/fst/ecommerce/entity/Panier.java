@@ -21,7 +21,7 @@ public class Panier {
 
     @OneToOne
     private Utilisateur utilisateur;
-    @OneToMany(mappedBy = "panier")
-    private Collection<PanierItem> panierItem;
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<PanierItem> panierItem = new ArrayList<>();
 
 }

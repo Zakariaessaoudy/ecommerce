@@ -8,6 +8,9 @@ import fst.ecommerce.service.CrudDtoService;
 
 import java.util.List;
 
-public interface PanierService extends CrudDtoService<Panier, PanierDto> {
-
+    public interface PanierService {
+        PanierDto create(PanierDto dto);
+        PanierDto getById(String id);
+        List<PanierDto> getAll();
+        void delete(String id);
 }

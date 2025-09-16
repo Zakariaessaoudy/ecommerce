@@ -11,10 +11,10 @@ import java.util.List;
 public interface UtilisateurService {
     UtilisateurDto create(UtilisateurDto utilisateurDto);
 
-    UtilisateurDto getById(Long id);
+    UtilisateurDto getById(String id);
 
     List<UtilisateurDto> getAll();
 
-    void delete(Long id);
+    void delete(String id);
 
 }
