@@ -1,6 +1,7 @@
 package fst.ecommerce.controller;
 
 import fst.ecommerce.dto.panier.PanierDto;
+import fst.ecommerce.dto.panierItem.PanierItemDto;
 import fst.ecommerce.service.panier.PanierService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +38,26 @@ public class PanierController {
         panierService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Ajouter un panierItem à un panier
+
+    @PostMapping("/{PanierId}/items")
+    public ResponseEntity<PanierDto> addPanierItemToPanier(
+            @PathVariable String panierId,
+            @RequestBody PanierItemDto panierItemDto
+    ){
+        return  ResponseEntity.ok(panierService.addPanierItemToPanier(panierId , panierItemDto));
+    }
+
+    // supprimer un panierItem d'un panier
+
+    @DeleteMapping("{panierId}/items/{panierItemId}")
+    public ResponseEntity<PanierDto> removePanierItemFromPanier(
+            @PathVariable String panierId ,
+            @PathVariable String panierItemId
+    ){
+        return  ResponseEntity.ok(panierService.removePanierItemFromPanier(panierId , panierItemId));
+    }
+
+
 }

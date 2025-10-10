@@ -2,8 +2,10 @@ package fst.ecommerce.service.panier;
 
 import fst.ecommerce.dto.categorie.CategorieDto;
 import fst.ecommerce.dto.panier.PanierDto;
+import fst.ecommerce.dto.panierItem.PanierItemDto;
 import fst.ecommerce.entity.Categorie;
 import fst.ecommerce.entity.Panier;
+import fst.ecommerce.entity.PanierItem;
 import fst.ecommerce.service.CrudDtoService;
 
 import java.util.List;
@@ -13,4 +15,6 @@ import java.util.List;
         PanierDto getById(String id);
         List<PanierDto> getAll();
         void delete(String id);
-}
+        PanierDto addPanierItemToPanier(String panierId , PanierItemDto panierItemDto);
+        PanierDto removePanierItemFromPanier(String panierId , String panierItemId);
+    }
