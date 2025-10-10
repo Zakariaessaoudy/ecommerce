@@ -1,6 +1,5 @@
 package fst.ecommerce.controller;
 
-
 import fst.ecommerce.dto.categorie.CategorieDto;
 import fst.ecommerce.service.categorie.CategorieService;
 import lombok.RequiredArgsConstructor;
@@ -42,10 +41,9 @@ public class CategorieController {
     }
 
     // 📦 Liste de tous les categorie
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CategorieDto>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
-
 
 }

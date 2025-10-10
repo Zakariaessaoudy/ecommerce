@@ -8,6 +8,7 @@ import java.util.Set;
  * --------
  * Represents a user in the system:
  * - Stores username, password, and roles
+ * TODO:WE HAVE REPLACED THIS CLASS BY Utilisateur.
  */
 @Entity
 public class AppUser {

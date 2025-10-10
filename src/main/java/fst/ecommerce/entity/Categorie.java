@@ -1,5 +1,6 @@
 package fst.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -23,5 +24,6 @@ public class Categorie {
     private String description;
 
     @OneToMany(mappedBy = "categorie")
+    @JsonIgnore
     private Collection<Produit> produits;
 }

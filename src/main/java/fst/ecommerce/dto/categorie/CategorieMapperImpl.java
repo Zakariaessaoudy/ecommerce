@@ -11,7 +11,7 @@ public class CategorieMapperImpl implements CategorieMapper {
                 .id(categorie.getId())
                 .name(categorie.getName())
                 .description(categorie.getDescription())
-                .produits(categorie.getProduits())
+                //.produits(categorie.getProduits())
                 .build();
 
     }
@@ -23,7 +23,7 @@ public class CategorieMapperImpl implements CategorieMapper {
                 .id(categorieDto.getId())
                 .name(categorieDto.getName())
                 .description(categorieDto.getDescription())
-                .produits(categorieDto.getProduits())
+                //.produits(categorieDto.getProduits())
                 .build();
     }
 }

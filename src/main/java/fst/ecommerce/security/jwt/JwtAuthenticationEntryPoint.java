@@ -1,9 +1,14 @@
 package fst.ecommerce.security.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import java.io.IOException;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * JwtAuthenticationEntryPoint
@@ -15,8 +20,18 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
-                         org.springframework.security.core.AuthenticationException authException)
-            throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                         AuthenticationException authException) throws IOException {
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+        Map<String, Object> errorDetails = new HashMap<>();
+        errorDetails.put("timestamp", Instant.now().toString());
+        errorDetails.put("status", 401);
+        errorDetails.put("error", "Unauthorized");
+        errorDetails.put("message", authException.getMessage());
+        errorDetails.put("path", request.getRequestURI());
+
+        new ObjectMapper().writeValue(response.getOutputStream(), errorDetails);
     }
 }

@@ -18,5 +18,5 @@ public class CategorieDto {
     @NotBlank
     private String description;
 
-    private Collection<Produit> produits;
+    //private Collection<Produit> produits;
 }
