@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/utilisateur")
+@RequestMapping("/api/utilisateurs")
 @RequiredArgsConstructor
 public class UtilisateurController {
 
@@ -25,8 +25,9 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.getById(id));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<UtilisateurDto>> getAll(){
+
         return ResponseEntity.ok(utilisateurService.getAll());
     }
 
