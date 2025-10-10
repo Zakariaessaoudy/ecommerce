@@ -18,7 +18,7 @@ public class CommandeDto {
     private String id;
     private Date dateCommande;
     private StatutCommande statutCommande;
-    private Long paiementId;
+    private String paiementId;
     private List<LigneCommandDto> ligneCommandes;
-    private Long utilisateurId;
+    private String utilisateurId;
 }

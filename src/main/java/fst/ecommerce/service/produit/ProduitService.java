@@ -14,5 +14,6 @@ public interface ProduitService extends CrudDtoService<String, ProduitAdminDto> 
     List<ProduitSimpleDto> LandingPageProduits();
     List<ProduitListDto> ListRechercheProduits(String keyword);
     ProduitDetailsDto findById(String id);
+    public ProduitDetailsDto findBy(String kw);
 
 }

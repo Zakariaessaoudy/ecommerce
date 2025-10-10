@@ -38,7 +38,6 @@ public class Produit {
 
     private List<Avis> avis;
 
-
     @OneToMany(mappedBy = "produit")
     @JsonIgnore
     private List<LigneCommande> ligneCommandes;

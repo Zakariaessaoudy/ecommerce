@@ -1,6 +1,8 @@
 package fst.ecommerce.dto.avis;
 
 import fst.ecommerce.entity.Avis;
+import fst.ecommerce.entity.Produit;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,18 +13,19 @@ public class AvisMapperImpl implements AvisMapper {
                 .id(avis.getId())
                 .note(avis.getNote())
                 .comment(avis.getComment())
-                .produit(avis.getProduit())
+                .produitId(avis.getProduit().getId())
                 .build();
     }
 
     @Override
     public Avis toEntity(AvisDto avisDto) {
-
+        Produit produit = new Produit();
+        produit.setId(avisDto.getId());
         return Avis.builder()
                 .id(avisDto.getId())
                 .note(avisDto.getNote())
                 .comment(avisDto.getComment())
-                .produit(avisDto.getProduit())
+                .produit(produit)
                 .build();
     }
 }

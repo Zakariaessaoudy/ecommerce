@@ -12,4 +12,5 @@ import java.util.List;
 public interface ProduitRepository extends JpaRepository<Produit, String> {
     @Query("SELECT p FROM Produit p WHERE LOWER(p.nom) LIKE LOWER(CONCAT('%', :kw, '%')) OR LOWER(p.description) LIKE LOWER(CONCAT('%', :kw, '%'))")
     List<Produit> searchProduits(@Param("kw") String kw);
+    Produit findByDescriptionContains(String Kw);
 }

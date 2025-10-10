@@ -79,4 +79,9 @@ public class ProduitServiceImpl implements ProduitService {
                 .orElseThrow(() -> new ProduitNotFoundException("Produit with id " + id + " not found"));
         return produitMapper.toDetailsDto(produit);
     }
+    public ProduitDetailsDto findBy(String kw){
+        ProduitDetailsDto produit = produitMapper.toDetailsDto(produitRepository.findByDescriptionContains(kw));
+        return produit;
+    }
+
 }

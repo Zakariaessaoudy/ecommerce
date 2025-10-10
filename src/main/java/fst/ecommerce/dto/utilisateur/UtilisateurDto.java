@@ -18,7 +18,7 @@ public class UtilisateurDto {
         private String prenom;
         private String email;
         private String telephone;
-        private String role;
+        private Role role;
         private String wishListId;
         private String panierId;
         private List<String> commandeIds;

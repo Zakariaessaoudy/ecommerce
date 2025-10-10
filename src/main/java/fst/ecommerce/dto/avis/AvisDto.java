@@ -12,5 +12,5 @@ public class AvisDto {
     private String id;
     private int note;
     private String comment;
-    private Produit produit;
+    private String produitId;
 }

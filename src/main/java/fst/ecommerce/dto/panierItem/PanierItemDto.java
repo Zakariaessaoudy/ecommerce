@@ -15,5 +15,5 @@ public class PanierItemDto {
     private String id;
     private int quantite;
     private Panier panier;
-    private Produit produit;
+    private String produitId;
 }
