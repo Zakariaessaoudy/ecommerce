@@ -1,3 +1,4 @@
+/*
 package fst.ecommerce.dto.avis;
 
 import fst.ecommerce.entity.Avis;
@@ -6,7 +7,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AvisMapperImpl implements AvisMapper {
+public class AvisMapperImpl2 implements AvisMapper {
     @Override
     public AvisDto toDTO(Avis avis) {
         return AvisDto.builder()
@@ -20,7 +21,7 @@ public class AvisMapperImpl implements AvisMapper {
     @Override
     public Avis toEntity(AvisDto avisDto) {
         Produit produit = new Produit();
-        produit.setId(avisDto.getId());
+        produit.setId(avisDto.getProduitId());
         return Avis.builder()
                 .id(avisDto.getId())
                 .note(avisDto.getNote())
@@ -29,3 +30,4 @@ public class AvisMapperImpl implements AvisMapper {
                 .build();
     }
 }
+*/

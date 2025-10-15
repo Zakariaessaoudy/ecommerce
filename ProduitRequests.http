@@ -1,0 +1,50 @@
+### CREATE a new product
+POST http://localhost:8082/api/produits
+Content-Type: application/json
+
+{
+  "nom": "produit test ",
+  "description": "desc test",
+  "prix": 1222.2,
+  "image": "imgtest",
+  "categorieID": "22f8d555-7890-4477-b457-5bcee46d1025"
+}
+
+### GET all products
+GET http://localhost:8082/api/produits/landing
+Accept: application/json
+
+### GET a product by ID
+GET http://localhost:8082/api/produits/0923bd5e-6214-47ba-9c14-67ca94c21ac2
+Accept: application/json
+
+### GET a product details by ID (Admin Purposes)
+GET http://localhost:8082/api/produits/0923bd5e-6214-47ba-9c14-67ca94c21ac2/details
+Accept: application/json
+
+
+### UPDATE product
+PUT http://localhost:8082/api/products/1
+Content-Type: application/json
+
+{
+  "id": "null",
+  "nom": "produit test ",
+  "description": "desc test",
+  "prix": 1222.2,
+  "image": "imgtest",
+  "categorieID": "22f8d555-7890-4477-b457-5bcee46d1025"
+}
+
+### GET products by categorie id
+GET http://localhost:8082/api/produits/byCat/22f8d555-7890-4477-b457-5bcee46d1025
+
+### GET products by Keywords
+GET http://localhost:8082/api/produits/search?keyword=description+du
+
+
+### DELETE product
+DELETE http://localhost:8082/api/produits/b232b779-f05b-4fc0-9e38-73aaa3686536
+
+
+validated ✅

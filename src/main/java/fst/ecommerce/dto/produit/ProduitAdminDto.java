@@ -30,11 +30,9 @@ public class ProduitAdminDto {
 
     private String image;
 
-    private Categorie categorie;
+    private  String categorieID;
 
     private List<AvisDto> avis;
 
-    private List<LigneCommandDto> ligneCommandes;
-
-    private List<WishListItemDto> wishListItems;
+    // TODO: Add stock (int) , and admin statistics
 }

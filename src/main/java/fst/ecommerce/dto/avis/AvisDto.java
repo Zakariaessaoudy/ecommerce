@@ -1,6 +1,5 @@
 package fst.ecommerce.dto.avis;
 
-import fst.ecommerce.entity.Produit;
 import lombok.*;
 
 @Builder

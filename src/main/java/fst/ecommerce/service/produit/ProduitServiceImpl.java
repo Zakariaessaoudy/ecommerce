@@ -22,6 +22,7 @@ public class ProduitServiceImpl implements ProduitService {
     @Override
     public ProduitAdminDto create(ProduitAdminDto produitAdminDto) {
         log.info("Creating new product: {}", produitAdminDto);
+        produitAdminDto.setId(null);
         Produit produit = produitMapper.toEntity(produitAdminDto);
         Produit saved = produitRepository.save(produit);
         return produitMapper.toDto(saved);
@@ -84,4 +85,11 @@ public class ProduitServiceImpl implements ProduitService {
         return produit;
     }
 
+    @Override
+    public List<ProduitSimpleDto> getProductsByCat(String id){
+        return produitRepository.findByCategorieId(id)
+                .stream()
+                .map(produitMapper::toSimpleDto)
+                .toList();
+    }
 }

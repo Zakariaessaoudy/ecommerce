@@ -18,5 +18,5 @@ public class ProduitDetailsDto {
     private double prix;
     private String image;
     private List<AvisDto> avis;
-    private List<LigneCommandDto> ligneCommandes;
+    private String categorieId;
 }

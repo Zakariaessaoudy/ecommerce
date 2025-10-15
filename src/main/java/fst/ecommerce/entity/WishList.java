@@ -19,6 +19,5 @@ public class WishList {
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
     @OneToMany(mappedBy = "wishList")
-    @JsonIgnore
     private List<WishListItem>  wishListItems ;
 }

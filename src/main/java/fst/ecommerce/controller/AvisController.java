@@ -35,8 +35,8 @@ public class AvisController {
     }
     // 📦 Liste de tous les Avis
     @GetMapping
-    public ResponseEntity<List<AvisDto>> getAllAvisByProduct() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<List<AvisDto>> getAllAvisByProduct(String id) {
+        return ResponseEntity.ok(service.getAllByProduct(id));
     }
 
 }

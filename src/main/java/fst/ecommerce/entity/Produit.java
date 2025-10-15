@@ -30,12 +30,9 @@ public class Produit {
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")
-    @JsonIgnore
     private Categorie categorie;
 
-    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-
+    @OneToMany(mappedBy = "produit", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Avis> avis;
 
     @OneToMany(mappedBy = "produit")
