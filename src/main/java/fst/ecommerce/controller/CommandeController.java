@@ -19,6 +19,7 @@ public class CommandeController {
     // ✅ Créer une commande
     @PostMapping
     public ResponseEntity<CommandeDto> create(@RequestBody CommandeDto dto) {
+        System.out.println("👉 Received CommandeDto: " + dto);
         return ResponseEntity.ok(commandeService.create(dto));
     }
 
@@ -29,7 +30,7 @@ public class CommandeController {
     }
 
     // ✅ Récupérer toutes les commandes
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CommandeDto>> getAll() {
         return ResponseEntity.ok(commandeService.getAll());
     }

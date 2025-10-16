@@ -8,6 +8,7 @@ import java.util.List;
 public interface CommandeService {
     CommandeDto create(CommandeDto commandeDto);
     CommandeDto getById(String id);
+    CommandeDto update(  CommandeDto commandeDto);
     List<CommandeDto> getAll();
     void delete(String id);
     CommandeDto addLigneToCommande(String commandeId, LigneCommandDto ligneDto);

@@ -1,17 +1,20 @@
 package fst.ecommerce.dto.commande;
 
+import fst.ecommerce.dto.ligneCommande.LigneCommandMapper;
 import fst.ecommerce.entity.Commande;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+
+
+@Mapper(componentModel = "spring", uses = {LigneCommandMapper.class})
 public interface CommandeMapper {
-
-    @Mapping(source = "paiement.id", target = "paiementId")
     @Mapping(source = "utilisateur.id", target = "utilisateurId")
-    CommandeDto toDTO(Commande commande);
-
-    @Mapping(source = "paiementId", target = "paiement.id")
+    @Mapping(source = "paiement.id", target = "paiementId")
+    CommandeDto toDTO(Commande entity);
     @Mapping(source = "utilisateurId", target = "utilisateur.id")
+    @Mapping(source = "paiementId", target = "paiement.id")
     Commande toEntity(CommandeDto dto);
 }
+
+

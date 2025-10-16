@@ -1,0 +1,19 @@
+### CREATE a commande
+POST http://localhost:8082/api/commandes
+Content-Type: application/json
+
+{
+  "dateCommande": "2025-10-10",
+  "statutCommande": "EN_ATTENTE",
+  "paiementId": "12345",
+  "utilisateurId": "u-001",
+  "ligneCommandes": []
+}
+
+
+
+### GET all commandes
+GET http://localhost:8082/api/commandes/all
+Content-Type: application/json
+
+

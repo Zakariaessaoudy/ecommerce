@@ -27,7 +27,7 @@ public class LivraisonController {
         return ResponseEntity.ok(livraisonService.getById(id));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<LivraisonDto>> getAll() {
         return ResponseEntity.ok(livraisonService.getAll());
     }

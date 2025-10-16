@@ -1,5 +1,6 @@
 package fst.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fst.ecommerce.enums.StatutCommande;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,6 +25,8 @@ public class Commande {
     @OneToOne
     private Paiement paiement;
     @OneToMany(mappedBy = "commande",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore   // break the cycle
+
     private Collection<LigneCommande> ligneCommandes;
     @ManyToOne
     private Utilisateur utilisateur;

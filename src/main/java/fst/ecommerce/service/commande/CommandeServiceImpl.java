@@ -1,21 +1,29 @@
 package fst.ecommerce.service.commande;
 
+import fst.ecommerce.dto.categorie.CategorieDto;
 import fst.ecommerce.dto.commande.CommandeDto;
 import fst.ecommerce.dto.commande.CommandeMapper;
 import fst.ecommerce.dto.ligneCommande.LigneCommandDto;
 import fst.ecommerce.dto.ligneCommande.LigneCommandMapper;
+import fst.ecommerce.entity.Categorie;
 import fst.ecommerce.entity.Commande;
 import fst.ecommerce.entity.LigneCommande;
 import fst.ecommerce.exception.RessourceNotFound;
 import fst.ecommerce.repository.CommandeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+@Slf4j
+
+
 public class CommandeServiceImpl implements CommandeService {
 
     private final CommandeRepository commandeRepository;
@@ -24,9 +32,19 @@ public class CommandeServiceImpl implements CommandeService {
 
     @Override
     public CommandeDto create(CommandeDto commandeDto) {
+        log.info("Creating new commande: {}", commandeDto);
+        commandeDto.setId(null);
         Commande commande = commandeMapper.toEntity(commandeDto);
         Commande saved = commandeRepository.save(commande);
         return commandeMapper.toDTO(saved);
+    }
+    @Override
+    public CommandeDto update(CommandeDto commandeDto) {
+        log.info("Updating category with id {}", commandeDto.getId());
+        commandeRepository.findById(commandeDto.getId())
+                .orElseThrow(() -> new RessourceNotFound("commande with id " + commandeDto.getId() + " not found"));
+        Commande updated = commandeRepository.save(commandeMapper.toEntity(commandeDto));
+        return commandeMapper.toDTO(updated);
     }
 
     @Override
