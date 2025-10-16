@@ -20,8 +20,7 @@ public class Avis {
     private String id;
     private int note;
     private String comment;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "produit_id")
-    @JsonIgnore
     private Produit produit;
 }

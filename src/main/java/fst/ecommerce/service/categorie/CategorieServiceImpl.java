@@ -24,6 +24,7 @@ public class CategorieServiceImpl implements CategorieService {
     @Override
     public CategorieDto create(CategorieDto categorieDto) {
         log.info("Creating new category: {}", categorieDto);
+        categorieDto.setId(null);
         Categorie categorie = mapper.toEntity(categorieDto);
         Categorie saved = repository.save(categorie);
         return mapper.toDTO(saved);

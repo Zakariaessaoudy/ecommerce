@@ -1,0 +1,40 @@
+### ✅ 1. Créer un nouvel avis (POST /api/avis)
+POST http://localhost:8082/api/avis
+Content-Type: application/json
+
+{
+  "note": 5,
+  "comment": "Produit excellent, je le recommande vivement !",
+  "produitId": "649ceec5-aeef-45a4-9918-20355db48424"
+}
+
+
+### ✅ 2. Créer un autre avis
+POST http://localhost:8082/api/avis
+Content-Type: application/json
+
+{
+  "note": 3,
+  "comment": "Bon produit mais livraison lente.",
+  "produitId": "649ceec5-aeef-45a4-9918-20355db48424"
+}
+
+
+### 🔍 3. Récupérer un avis par son ID
+# Remplacez {{avisId}} par un vrai ID d'avis existant
+GET http://localhost:8082/api/avis/383bb293-a7b5-11f0-a016-00ffb2ae6518
+Accept: application/json
+
+
+### 📦 4. Récupérer tous les avis d’un produit
+# Le contrôleur prend le paramètre de requête 'id' (produitId)
+GET http://localhost:8082/api/avis?id=0923bd5e-6214-47ba-9c14-67ca94c21ac2
+Accept: application/json
+
+
+### ❌ 5. Supprimer un avis par son ID
+# Remplacez {{avisId}} par un vrai ID d'avis existant
+DELETE http://localhost:8082/api/avis/383ba328-a7b5-11f0-a016-00ffb2ae6518
+Accept: application/json
+
+validated ✅

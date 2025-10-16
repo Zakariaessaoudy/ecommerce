@@ -64,9 +64,11 @@ public class ProduitController {
     public ResponseEntity<List<ProduitListDto>> search(@RequestParam String keyword) {
         return ResponseEntity.ok(produitService.ListRechercheProduits(keyword));
     }
-    @GetMapping("/search-by-kw")
-    public ResponseEntity<ProduitDetailsDto> searchByKw(@RequestParam String keyword){
-        return ResponseEntity.ok(produitService.findBy(keyword));
+
+    // afficher les produits par categorie
+    @GetMapping("/byCat/{id}")
+    public ResponseEntity<List<ProduitSimpleDto>> getProductsByCatId(@PathVariable String id){
+        return ResponseEntity.ok(produitService.getProductsByCat(id));
     }
 }
 

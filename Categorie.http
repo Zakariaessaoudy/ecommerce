@@ -1,0 +1,32 @@
+### CREATE a new categorie
+POST http://localhost:8082/api/categorie
+Content-Type: application/json
+
+{
+
+  "name": "sport urbaine",
+  "description": "desription sport urbaine"
+}
+
+### GET all categories
+GET http://localhost:8082/api/categorie/all
+Accept: application/json
+
+### GET a categorie by ID
+GET http://localhost:8082/api/categorie/5cfdea91-a05c-4885-a2d7-a92412f492fd
+Accept: application/json
+
+### UPDATE a categorie
+PUT http://localhost:8082/api/categorie/5cfdea91-a05c-4885-a2d7-a92412f492fd
+Content-Type: application/json
+
+{
+
+  "name": "sport non urbaine",
+  "description": "desription sport non urbaine"
+}
+
+### DELETE categorie
+DELETE http://localhost:8082/api/categorie/5cfdea91-a05c-4885-a2d7-a92412f492fd
+
+validated ✅

@@ -25,6 +25,7 @@ public class AvisServiceImpl implements AvisService {
     @Override
     public AvisDto create(AvisDto avisDto) {
         log.info("Creating new Avis: {}", avisDto);
+        avisDto.setId(null);
         Avis avis = avisMapper.toEntity(avisDto);
         Avis saved = repository.save(avis);
         return avisMapper.toDTO(saved);
@@ -59,6 +60,18 @@ public class AvisServiceImpl implements AvisService {
     public List<AvisDto> getAll() {
         log.info("Fetching all Avis");
         return repository.findAll()
+                .stream()
+                .map(avisMapper::toDTO)
+                .toList();
+    }
+
+
+    @Override
+    public List<AvisDto> getAllByProduct(String id) {
+        log.info("Fetching all Avis");
+
+
+        return repository.findByProduitId(id)
                 .stream()
                 .map(avisMapper::toDTO)
                 .toList();
